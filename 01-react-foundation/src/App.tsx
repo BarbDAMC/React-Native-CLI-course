@@ -1,7 +1,18 @@
+
 import { 
-  // BasicTypes,
-  ObjectLiterals 
+  BasicTypes,
+  ObjectLiterals,
+  BasicFunctions
 } from "./typescript"
+
+import { 
+  Counter, 
+  CounterWithHook, 
+  UsersPage, 
+  LoginPage, 
+  FormsPage 
+} from "./components"
+
 
 function App() {
 
@@ -9,8 +20,16 @@ function App() {
     <main>
       <h1>Introducción a React + TS</h1>
 
-      {/* <BasicTypes /> */}
+      <BasicTypes />
       <ObjectLiterals />
+      <BasicFunctions />
+      <Counter />
+      <CounterWithHook />
+      <LoginPage />
+      <UsersPage />
+
+      <FormsPage />
+
 
     </main>
   )
