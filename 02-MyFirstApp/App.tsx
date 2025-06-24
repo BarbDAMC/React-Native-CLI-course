@@ -10,6 +10,7 @@ import { PositionScreen } from './src/presentation/screens/PositionScreen'
 import { FlexScreen } from './src/presentation/screens/FlexScreen'
 import { FlexDirectionScreen } from './src/presentation/screens/FlexDirectionScreen'
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { HomeworkScreen } from './src/presentation/screens/HomeworkScreen'
 
 export const App = () => {
   return (
@@ -18,7 +19,7 @@ export const App = () => {
         icon: (props) => <Ionicons {...props} />
       }}
     >
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#28425b' }}>
         {/* <HelloWorldScreen name='Barbara Morantes' /> */}
         {/* <CounterScreen /> */}
         {/* <CounterM3Screen /> */}
@@ -26,7 +27,8 @@ export const App = () => {
         {/* <DimensionScreen /> */}
         {/* <PositionScreen /> */}
         {/* <FlexScreen /> */}
-        <FlexDirectionScreen />
+        {/* <FlexDirectionScreen /> */}
+      <HomeworkScreen />
       </SafeAreaView>
     </PaperProvider>
    
