@@ -14,10 +14,16 @@ interface Button {
 export const CalculatorScreen = () => {
   const { 
     number, 
+    previousNumber,
     clean,
     deleteOperation,
     toogleSign,
     buildNumber,
+    divideOperation,
+    multiplyOperation,
+    subtractOperation,
+    addOperation,
+    calculateResult
   } = useCalculator();
 
   const handleButtonPress = (label: string) => {
@@ -36,6 +42,26 @@ export const CalculatorScreen = () => {
     if (parseInt(label) >= 0 && parseInt(label) <= 9 || label === '.') {
       buildNumber(label);
     }
+
+    if (label === '+') {
+      addOperation();
+    }
+
+    if (label === '-') {
+      subtractOperation();
+    }
+
+    if (label === 'x') {
+      multiplyOperation();
+    }
+
+    if (label === '÷') {
+      divideOperation();
+    }
+    
+    if (label === '=') {
+      calculateResult();
+    }
   }
 
   return (
@@ -49,7 +75,13 @@ export const CalculatorScreen = () => {
         >
           {number}
         </Text>
-        <Text style={styles.subResult}>15</Text>
+        <Text 
+          style={styles.subResult}
+          adjustsFontSizeToFit
+          numberOfLines={1}
+        >
+          {previousNumber === '0' ? '' : previousNumber}
+        </Text>
       </View>
 
       {
