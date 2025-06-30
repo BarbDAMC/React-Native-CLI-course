@@ -1,33 +1,54 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 enum Operator {
-  add,
-  subtract,
-  multiply,
-  divide,
+  add = '+',
+  subtract = '-',
+  multiply = 'x',
+  divide = '÷',
 }
 
 
 export const useCalculator = () => {
   const [number, setNumber] = useState('0');
+  const [formula, setFormula] = useState('');
   const [previousNumber, setPreviousNumber] = useState('0');
 
-  const lastOperation = useRef<Operator>(0);
+  const lastOperation = useRef<Operator>();
+
+   useEffect(() => {
+      if (lastOperation.current) {
+        const firstFormulaPart = formula.split(' ').at(0);
+        setFormula(`${firstFormulaPart} ${lastOperation.current} ${number}`)
+      } else {
+        setFormula( number )
+      }
+    }, [ number ])
+
+    useEffect(() => {
+      const subResult = calculateSubResult();
+      setPreviousNumber(`${subResult}`)
+    }, [formula])
+
+
 
   const clean = () => {
     setNumber('0');
     setPreviousNumber('0');
+    lastOperation.current = undefined;
+    setFormula('');
   };
 
   const deleteOperation = () => { 
-    const negativeNumber = number.length === 2 && number.includes('-');
+    const negativeNumber = formula.length === 2 && formula.includes('-');
     
-    if (number.length === 1 || negativeNumber) {
-      return setNumber('0');
+    if (formula.length === 1 || negativeNumber) {
+      setNumber('0');
+      setPreviousNumber('0');
+      return setFormula('');
     }
 
-    const updatedNumber = number.substring(0, number.length - 1);
-    return setNumber(updatedNumber);
+    const updateFormula = formula.substring(0, formula.length - 1);
+    return setFormula(updateFormula);
   }
 
   const toogleSign = () => {
@@ -70,6 +91,8 @@ export const useCalculator = () => {
   }
 
   const setLastNumber = () => {
+    calculateResult();
+    
     if (number.endsWith('.')) {
       setPreviousNumber( number.slice(0, -1));
     } else {
@@ -100,31 +123,32 @@ export const useCalculator = () => {
   }
 
   const calculateResult = () => {
-    const num1 = Number( number);
-    const num2 = Number( previousNumber);
+    const result = calculateSubResult();
+    setFormula(`${result}`);
+  
+    lastOperation.current = undefined;
+    setPreviousNumber('0');
+  }
+
+  const calculateSubResult = () => {
+    const [firstValue, operation, secondValue] = formula.split(' ');
+    const num1 = Number(firstValue);
+    const num2 = Number(secondValue);
+
+    if ( isNaN(num2)) return num1;
 
     switch (lastOperation.current) {
       case Operator.add:
-        setNumber(`${num1 + num2}`);
-        setPreviousNumber('0');
-        break;
+        return num1 + num2;
+
       case Operator.subtract:
-        setNumber(`${num2 - num1}`);
-        setPreviousNumber('0');
-        break;
+        return num1 - num2;
+
       case Operator.multiply:
-        setNumber(`${num1 * num2}`);
-        setPreviousNumber('0');
-        break;
+        return num1 * num2;
+
       case Operator.divide:
-        if (num1 === 0) {
-          setPreviousNumber('No se puede dividir por 0');
-        } else {
-          setNumber(`${num2 / num1}`);
-          setPreviousNumber('0');
-        }
-    
-        break;
+        return num1 / num2;
 
       default:
         throw new Error('Operation not implemented');
@@ -133,6 +157,7 @@ export const useCalculator = () => {
 
   return {
     number,
+    formula,
     previousNumber,
 
     clean,

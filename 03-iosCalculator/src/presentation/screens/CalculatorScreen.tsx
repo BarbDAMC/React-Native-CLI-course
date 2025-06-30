@@ -13,7 +13,7 @@ interface Button {
 
 export const CalculatorScreen = () => {
   const { 
-    number, 
+    formula,
     previousNumber,
     clean,
     deleteOperation,
@@ -58,11 +58,12 @@ export const CalculatorScreen = () => {
     if (label === '÷') {
       divideOperation();
     }
-    
+
     if (label === '=') {
       calculateResult();
     }
   }
+
 
   return (
     <View style={styles.calculatorContainer}>
@@ -73,15 +74,22 @@ export const CalculatorScreen = () => {
           adjustsFontSizeToFit
           numberOfLines={1}
         >
-          {number}
+          {formula}
         </Text>
-        <Text 
-          style={styles.subResult}
-          adjustsFontSizeToFit
-          numberOfLines={1}
-        >
-          {previousNumber === '0' ? '' : previousNumber}
-        </Text>
+        
+        {
+          (formula === previousNumber) ? <Text style={styles.subResult} ></Text>
+          : 
+          (
+            <Text 
+              style={styles.subResult}
+              adjustsFontSizeToFit
+              numberOfLines={1}
+            >
+             {previousNumber}
+            </Text>
+          )
+        }
       </View>
 
       {
