@@ -1,7 +1,9 @@
-import { View } from "react-native"
+import { Text, View } from "react-native"
 
 export const AboutScreen = () => {
   return (
-    <View>AboutScreen</View>
+    <View>
+      <Text>AboutScreen</Text>
+    </View>
   )
 }

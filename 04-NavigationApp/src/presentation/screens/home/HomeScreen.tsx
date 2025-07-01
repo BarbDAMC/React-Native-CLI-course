@@ -4,6 +4,7 @@ import { DrawerActions, type NavigationProp, useNavigation } from "@react-naviga
 import { PrimaryButton } from "../../components/shared/PrimaryButton";
 import { type RootStackParams } from "../../routes/StackNavigator";
 import { useEffect } from "react";
+import { HamburguerMenu } from "../../components/shared/HamburguerMenu";
 
 
 export const HomeScreen = () => {
@@ -11,18 +12,11 @@ export const HomeScreen = () => {
   const onPressProducts = () => navigation.navigate('Products');
   const onPressSettings = () => navigation.navigate('Settings');
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => (
-        <Pressable onPress={() => navigation.dispatch( DrawerActions.toggleDrawer )}>
-          <Text>Menu</Text>
-        </Pressable>
-      )
-    })
-  })
 
   return (
     <View style={ globalStyles.container }>
+      <HamburguerMenu />
+
       <PrimaryButton 
         label="Productos"
         onPress={onPressProducts}

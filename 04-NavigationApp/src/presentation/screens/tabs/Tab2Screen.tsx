@@ -1,7 +1,10 @@
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
+import { HamburguerMenu } from '../../components/shared/HamburguerMenu'
 
 export const Tab2Screen = () => {
   return (
-    <View>Tab1Screen</View>
+    <View>
+      <Text>Tab2 Screen</Text>
+    </View>
   )
 }

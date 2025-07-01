@@ -12,7 +12,7 @@ export const ProfileScreen = () => {
       style={{
         flex: 1,
         paddingHorizontal: 20,
-        marginTop: (Platform.OS === 'android') ? top + 20 : top
+        marginTop: (Platform.OS === 'android') ? top + 10 : top - 20
       }}
     >
       <Text style={{ marginBottom: 10 }}>Profile Screen</Text>
